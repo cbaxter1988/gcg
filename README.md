@@ -7,7 +7,163 @@ configuration generation. This tool also supports the ability to store configura
 
 Both the docker-cli and API utilize JSON models for input.  There are required model keys for each configuration request type. 
 
-### Installation 
+### Public API 
+This service is deployed to Amazon AWS and is available for public consumption. Use the following endpoint to generate
+configurations of your own. 
+
+- URL - lb.cbaxterjr.com/api/v1/gcg
+
+Use to validate if service is alive.
+```bash
+curl --location --request GET 'http://lb.cbaxterjr.com:80/health'
+```
+
+Generates a Basic Cisco IOS Config
+```bash
+curl --location --request POST 'http://lb.cbaxterjr.com:80/api/v1/gcg?return_type=text&name=R1-CORE&store_aws=false&lab_name=NOC_A_LAB&template_type=ios_base_node' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "hostname": "R12-CORE",
+    "domain": "bits.local",
+    "interfaces": [
+        {
+            "link_id": "lo0",
+            "description": "MGMT Interface",
+            "ipv4_addrs": [
+                {
+                    "address": "10.0.0.1",
+                    "netmask": "255.255.255.255"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi1",
+            "bandwidth": "100",
+            "description": "CSR2",
+            "mpls": {
+                "ldp": true
+            },
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "network_type": "point-to-point",
+                "auth": {
+                    "is_null": true
+                }
+            },
+            "ipv4_addrs": [
+                {
+                    "address": "10.2.4.2",
+                    "netmask": "255.255.255.252"
+                }
+            ],
+            "ipv6_addrs": [
+                {
+                    "ipv6_address": "2001:2:4::2/64"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi2",
+            "bandwidth": "50",
+            "description": "CSR3",
+            "mpls": {
+                "ldp": true
+            },
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "network_type": "point-to-point",
+                "auth": {
+                    "is_null": true
+                }
+            },
+            "ipv4_addrs": [
+                {
+                    "address": "10.3.4.2",
+                    "netmask": "255.255.255.252"
+                }
+            ],
+            "ipv6_addrs": [
+                {
+                    "ipv6_address": "2001:3:4::2/64"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi3",
+            "bandwidth": "100",
+            "description": "CSR7",
+            "mpls": {
+                "ldp": true
+            },
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "auth": {
+                    "is_null": true
+                }
+            },
+            "ipv4_addrs": [
+                {
+                    "address": "10.4.7.1",
+                    "netmask": "255.255.255.252"
+                }
+            ],
+            "ipv6_addrs": [
+                {
+                    "ipv6_address": "2001:4:7::1/64"
+                }
+            ]
+        },
+        {
+            "link_id": "Gi4",
+            "bandwidth": "100",
+            "description": "CSR8",
+            "mpls": {
+                "ldp": true
+            },
+            "ospf": {
+                "p_id": "1",
+                "area_id": "100",
+                "auth": {
+                    "is_null": true
+                }
+            },
+            "ipv4_addrs": [
+                {
+                    "address": "10.4.8.1",
+                    "netmask": "255.255.255.252"
+                }
+            ],
+            "ipv6_addrs": [
+                {
+                    "ipv6_address": "2001:4:8::1/64"
+                }
+            ]
+        }
+    ]
+}'
+```
+
+### Docker Compose 
+```yaml
+version: '3.1'
+
+services:
+  app:
+    image: cbaxter1988/gcg
+    ports:
+      - 5000:5000
+    environment:
+      - APP_PORT=5000
+      - AWS_ACCESS_KEY=YOUR_AWS_KEY
+      - AWS_SECRET_KEY=YOUR_AWS_SECRET
+      - TEMP_FOLDER=/var/tmp
+      - DEBUG=false
+```
+
+### venv/local installation 
 ```bash
 git clone https://github.com/cbaxter1988/gcg.git
 cd gcg
