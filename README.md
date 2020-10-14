@@ -7,6 +7,12 @@ configuration generation. This tool also supports the ability to store configura
 
 Both the docker-cli and API utilize JSON models for input.  There are required model keys for each configuration request type. 
 
+### Public API 
+This service is deployed to Amazon AWS and is available for public consumption. Use the following endpoint to generate
+configurations of your own. 
+
+- URL - lb-ecs-928096233.us-east-2.elb.amazonaws.com
+
 ### Installation 
 ```bash
 git clone https://github.com/cbaxter1988/gcg.git
