@@ -146,7 +146,24 @@ curl --location --request POST 'http://lb.cbaxterjr.com:80/api/v1/gcg?return_typ
 }'
 ```
 
-### Installation 
+### Docker Compose 
+```yaml
+version: '3.1'
+
+services:
+  app:
+    image: cbaxter1988/gcg
+    ports:
+      - 5000:5000
+    environment:
+      - APP_PORT=5000
+      - AWS_ACCESS_KEY=YOUR_AWS_KEY
+      - AWS_SECRET_KEY=YOUR_AWS_SECRET
+      - TEMP_FOLDER=/var/tmp
+      - DEBUG=false
+```
+
+### venv/local installation 
 ```bash
 git clone https://github.com/cbaxter1988/gcg.git
 cd gcg
