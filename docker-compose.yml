@@ -4,9 +4,10 @@ services:
   app:
     image: cbaxter1988/gcg
     ports:
-      - 5002:5002
+      - 5000:5000
     environment:
-      - APP_PORT=5002
-      - DB_HOST=127.0.0.1
-      - DB=LCG_API
-      - DEBUG=True
+      - APP_PORT=5000
+      - AWS_ACCESS_KEY=KEY
+      - AWS_SECRET_KEY=KEY
+      - TEMP_FOLDER=/var/tmp
+      - DEBUG=false
