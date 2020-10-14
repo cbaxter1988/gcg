@@ -1,6 +1,6 @@
 import http.client as http_status_codes
 from functools import wraps
-import psutil
+# import psutil
 from flask import Flask, jsonify, render_template
 from flask_restful import Api
 from gcg.api.resources import (
@@ -30,16 +30,30 @@ def index():
 
 @app.route("/health")
 @app.route("/health_check")
-def health():
+def health_v2():
     return make_json_response(
         data={
-            "cpu_used_percent": psutil.cpu_percent(),
-            "ram_used_percent": psutil.virtual_memory().percent,
-            "ram_avail_percent": psutil.virtual_memory().available * 100 / psutil.virtual_memory().total,
+            # "cpu_used_percent": psutil.cpu_percent(),
+            # "ram_used_percent": psutil.virtual_memory().percent,
+            # "ram_avail_percent": psutil.virtual_memory().available * 100 / psutil.virtual_memory().total,
         },
         msg="System is Healthy",
         status_code=http_status_codes.OK
     )
+
+# --- psutil fails on Docker image build, need to troubleshoot, this function returns valuable server info.
+# def health_v1():
+#     return make_json_response(
+#         data={
+#             "cpu_used_percent": psutil.cpu_percent(),
+#             "ram_used_percent": psutil.virtual_memory().percent,
+#             "ram_avail_percent": psutil.virtual_memory().available * 100 / psutil.virtual_memory().total,
+#         },
+#         msg="System is Healthy",
+#         status_code=http_status_codes.OK
+#     )
+
+
 
 
 @app.route("/api/v1/login")
