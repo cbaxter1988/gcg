@@ -215,11 +215,3 @@ Run Internal Server
 python -m gcg --run 
 ```
 
-# ENV options
-Enviornment Vars can be declared in multuple methods. 
-
-1. Create a file env.py in the main directory after cloning this repo. 
-
-
-  
-2. Docker envs.  
