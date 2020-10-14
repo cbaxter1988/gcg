@@ -163,11 +163,14 @@ services:
       - DEBUG=false
 ```
 
-### venv/local installation 
+### local installation 
 ```bash
 git clone https://github.com/cbaxter1988/gcg.git
-cd gcg
+cd gcg 
+
 python3 setup.py sdist
+
+pip install dist/lcg-1.tar.gz
 ```
 
 
