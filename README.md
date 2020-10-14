@@ -7,11 +7,22 @@ configuration generation. This tool also supports the ability to store configura
 
 Both the docker-cli and API utilize JSON models for input.  There are required model keys for each configuration request type. 
 
+### Installation 
+```bash
+git clone https://github.com/cbaxter1988/gcg.git
+cd gcg
+python3 setup.py sdist
+```
 
 
+### CLI Usage 
+```bash
+python -m gcg [-h]
+```
 
+Help Text:
 ```text
-usage: __main__.py [-h] [--run] [--json JSON]
+usage: gcg [-h] [--run] [--json JSON]
                    [--template_type {ios_base_node,ios_te_tunnels,ios_bgp_policy,ios_bgp_session,ios_explicit_path,ios_vpls,ios_evpn,xr_base_config,linux_netplan_base}]
                    [--store_aws] [--store_local]
                    [--aws_access_key AWS_ACCESS_KEY]
@@ -41,8 +52,11 @@ Commands for running the GCG CLI tool:
                         file
 
 Process finished with exit code 0
+```
 
-
+Run Internal Server
+```bash
+python -m gcg --run 
 ```
 
 # ENV options
@@ -51,15 +65,5 @@ Enviornment Vars can be declared in multuple methods.
 1. Create a file env.py in the main directory after cloning this repo. 
 
 
-```python
-import os 
-
-APP_PORT = os.getenv("APP_PORT", 5002)
-APP_HOST = os.getenv("APP_HOST", "0.0.0.0")
-DB_HOST = os.getenv("DB_HOST", "192.168.1.182")
-DB_PORT = os.getenv("DB_PORT", 27017)
-DB = os.getenv("DB", "LCG_API")
-DEBUG = os.getenv("DEBUG", True)
-```
   
 2. Docker envs.  
