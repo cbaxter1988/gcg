@@ -1,4 +1,5 @@
 import unittest
+import os
 
 # Load Test Modules
 from test import (
@@ -12,6 +13,7 @@ loader = unittest.TestLoader()
 suite = unittest.TestSuite()
 
 
+
 def load_tests():
     suite.addTests(loader.loadTestsFromModule(test_task))
     suite.addTests(loader.loadTestsFromModule(test_genesis))
@@ -19,7 +21,7 @@ def load_tests():
 
 
 def run_tests():
-    runner = unittest.TextTestRunner(verbosity=1)
+    runner = unittest.TextTestRunner(verbosity=0)
     runner.run(suite)
 
 
