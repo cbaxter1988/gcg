@@ -9,7 +9,7 @@ stream_handler.setFormatter(formatter)
 gcg_logger = logging.getLogger("gcgLogger")
 gcg_logger.addHandler(stream_handler)
 
-if DEBUG:
+if DEBUG is True:
     gcg_logger.setLevel(logging.DEBUG)
 else:
     gcg_logger.setLevel(logging.INFO)
