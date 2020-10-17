@@ -6,63 +6,26 @@ info:
   '
   version: 1.0.0
 servers:
-  - url: 'http://udev.bits.local:5002/api'
+  - url: 'lb.cbaxterjr.com'
 paths:
   /api/v1/gcg:
 
     post:
       tags:
-        - Config
+        - Genesis Config Generator(GCG)
       summary: Generates Base Configurations.
       description: '
       Creates Base Configurations based on the node_type key.
       '
       parameters:
         - in: query
-          description: Name of the configuration item that will be generated.
-          name: name
+          description: Type Configuration that you would to be generated
+          name: template_type
           schema:
 
             type: string
             enum:
               - ios_base_node
-
-        - in: query
-          description: Return Val type, default is text.
-          name: return_type
-          schema:
-            type: string
-            enum:
-              - text
-              - list
-              - json
-
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/BaseConfig'
-
-
-      responses:
-        '200':
-          description: OK
-  /v1/lcg/config/linux/netplan:
-
-    post:
-      tags:
-        - Config
-      summary: Generates Base Configurations.
-      description: '
-        Creates Base Configurations based on the node_type key.
-        '
-      parameters:
-        - in: query
-          description: template type you would like generated.
-          name: template_type
-          schema:
-            type: string
-            enum:
               - linux_netplan_base
 
         - in: query
@@ -75,22 +38,39 @@ paths:
               - list
               - json
 
+        - in: query
+          description: Option to store to AWS cloud.
+          name: store_aws
+          schema:
+            default: false
+            type: boolean
+
+        - in: query
+          description: Return Val type, default is text.
+          name: lab_name
+          schema:
+            type: string
+
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LinuxNetplanBase'
-
+              type: object
+              properties:
+                key:
+                  description: The body is the schema based on the template_type selected.
+                  type: val
 
       responses:
         '200':
           description: OK
+
 tags:
   - name: Config
 
 components:
   schemas:
     BaseConfig:
-      $ref: 'openapi/schemas/base_config.yml#/BaseConfig'
+      $ref: 'openapi/schemas/ios_base_node.yml#/BaseConfig'
     LinuxNetplanBase:
       $ref: 'openapi/schemas/linux_netplan.yml#/LinuxNetplanBasic'
