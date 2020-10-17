@@ -218,3 +218,18 @@ data_ipv4_addr_cidr = {
     "address": "192.168.1.1",
     "cidr": 24
 }
+
+data_ipv6_addr = {
+    "ipv6_address": "2001:0db8:85a3:0000:0000:8a2e:0370:7334"
+}
+data_ipv6_eui_64 = {
+    "eui_64": "2001:BAE:274F:BAED::/64"
+}
+
+data_ipv6_link_local = {
+    "link_local": "FE80::C001:37FF:FE6C:0"
+}
+
+data_ipv6_anycast = {
+    "anycast": "2001:0db8:85a3::8a2e:0370:7334"
+}
