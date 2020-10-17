@@ -1,4 +1,5 @@
 import logging
+
 from gcg.env import DEBUG
 
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -11,4 +12,4 @@ gcg_logger.addHandler(stream_handler)
 if DEBUG:
     gcg_logger.setLevel(logging.DEBUG)
 else:
-    gcg_logger.setLevel(logging.WARNING)
+    gcg_logger.setLevel(logging.INFO)

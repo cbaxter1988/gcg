@@ -1,4 +1,4 @@
-from gcg.schemas.network import IPv4Addr, IPv6Addr, Schema, fields, IPValidator
+from gcg.schemas.network import IPv4Addr, IPValidator, Schema, fields
 
 
 class NetplanInterfaceSchema(Schema):
