@@ -88,7 +88,7 @@ class MyTestCase(unittest.TestCase):
         genesis_results = genesis.generate_config_from_task(
             task=task,
             lab_name="GCG_UNIT_TEST",
-            store_aws=True
+            store_aws=False
         )
 
         self.assertIsInstance(genesis_results, GenesisResults)
@@ -113,7 +113,7 @@ class MyTestCase(unittest.TestCase):
         genesis_results = genesis.generate_config_from_task(
             task=task,
             lab_name="GCG_UNIT_TEST",
-            store_local=True
+            store_local=False
         )
 
         self.assertIsInstance(genesis_results, GenesisResults)
