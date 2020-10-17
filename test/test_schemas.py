@@ -1,7 +1,6 @@
 import unittest
-from lcg.schemas import (
-    BaseNode,
-    BaseInterface,
+from test.vars import data_ipv4_addr_cidr, data_ipv4_addr_netmask
+from gcg.schemas import (
     IPv4Addr
 )
 
