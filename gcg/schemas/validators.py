@@ -1,6 +1,7 @@
 import ipaddress
 
 from marshmallow import validate
+from marshmallow.exceptions import ValidationError
 
 
 class IPValidator(validate.Validator):
@@ -10,5 +11,5 @@ class IPValidator(validate.Validator):
     def __call__(self, val):
         try:
             ipaddress.ip_address(val)
-        except ValueError:
-            raise
+        except ValueError as error:
+            raise ValidationError(str(error))
