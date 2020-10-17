@@ -1,6 +1,6 @@
 from marshmallow import Schema, fields
 from gcg.schemas.validators import IPValidator
-from marshmallow.validate import Length
+from marshmallow.validate import Length, Range
 
 
 class IPv6Addr(Schema):
@@ -13,4 +13,4 @@ class IPv6Addr(Schema):
 class IPv4Addr(Schema):
     address = fields.Str(required=True, validate=IPValidator())
     netmask = fields.Str(validate=IPValidator())
-    cidr = fields.Str(validate=Length(1, 32))
+    cidr = fields.Int(validate=Range(1, 32))
