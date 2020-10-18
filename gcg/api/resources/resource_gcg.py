@@ -4,7 +4,7 @@ from distutils.util import strtobool
 from flask_restful import Resource, request
 from gcg.api.controllers.controller_gcg import controller_gcg_v2, ControllerResult
 from gcg.exceptions import GCGValidationError
-from gcg.schemas import schema_request
+from gcg.schemas import api
 from gcg.utils import make_json_response, make_text_response
 
 
@@ -12,7 +12,7 @@ class GCGResource(Resource):
 
     @staticmethod
     def post():
-        request_schema = schema_request.GCGAPIOpts()
+        request_schema = api.GCGAPIOpts()
 
         # Extract Header Info
         AWS_ACCESS_KEY = request.headers['X-Api-Key']

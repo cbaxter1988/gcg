@@ -7,12 +7,15 @@ ENV PATH="/opt/venv/bin:$PATH"
 
 # ---- Compiles Python Distro ----
 COPY gcg /gcg
+COPY test /test
+COPY test_suite.py /
 COPY requirements.txt /
 COPY setup.py /
 COPY *.in /
 COPY *.md /
 
 RUN pip install -r requirements.txt
+RUN python3 /test_suite.py
 RUN python3 setup.py sdist
 
 # ---- Copy Files/Build ----

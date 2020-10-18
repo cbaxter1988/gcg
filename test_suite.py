@@ -5,7 +5,7 @@ import os
 from test import (
     test_task,
     test_genesis,
-    test_schemas
+    test_schemas_network
 )
 
 # Creates loader and empty test suite.
@@ -17,7 +17,7 @@ suite = unittest.TestSuite()
 def load_tests():
     suite.addTests(loader.loadTestsFromModule(test_task))
     suite.addTests(loader.loadTestsFromModule(test_genesis))
-    suite.addTests(loader.loadTestsFromModule(test_schemas))
+    suite.addTests(loader.loadTestsFromModule(test_schemas_network))
 
 
 def run_tests():

@@ -22,6 +22,11 @@ class IPv6Validator(validate.Validator):
 
     def __call__(self, val):
         try:
+
+            if str(val).find("/") > 1:
+                i = str(val).index("/")
+                val = val[:i]
+
             ipaddress.ip_address(val)
 
         except ValueError as error:

@@ -1,1 +1,1 @@
-from gcg.schemas.network.core import *
+from gcg.schemas.network.ip import *

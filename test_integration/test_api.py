@@ -2,7 +2,7 @@ import unittest
 
 import requests
 from test_integration.vars import SERVICE_PORT, SERVICE_URL
-
+from gcg.env import AWS_SECRET_KEY, AWS_ACCESS_KEY
 
 class MyTestCase(unittest.TestCase):
     def test_health_service(self):
@@ -153,8 +153,8 @@ class MyTestCase(unittest.TestCase):
         """
         headers = {
             'Content-Type': 'application/json',
-            'x-api-key': 'AKIA6MRXVMB5NBSTYHO2',
-            'x-api-secret': '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'
+            'x-api-key': AWS_ACCESS_KEY,
+            'x-api-secret': AWS_SECRET_KEY
         }
 
         response = requests.request("POST", url, headers=headers, data=payload)
