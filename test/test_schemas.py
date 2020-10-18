@@ -3,8 +3,12 @@ import json
 import unittest
 
 from gcg.schemas import (
-    IPv4Addr, IPv6Addr
+    IPv4Addr,
+    IPv6Addr,
+    BaseSNMPv2,
+    BaseSNMPv3
 )
+from gcg.schemas.network.snmp import SNMPV3_MODES, AUTH_ALGS, PRIV_ALGS
 from marshmallow.exceptions import ValidationError
 from test.vars import (
     data_ipv4_addr_netmask,
@@ -12,7 +16,11 @@ from test.vars import (
     data_ipv6_addr,
     data_ipv6_eui_64,
     data_ipv6_link_local,
-    data_ipv6_anycast
+    data_ipv6_anycast,
+    data_base_snmpv2,
+    data_base_snmpv3_auth_priv,
+    data_base_snmpv3_auth_no_priv,
+    data_base_snmpv3_no_auth_no_priv
 
 )
 
@@ -183,6 +191,145 @@ class IPV6TestCase(unittest.TestCase):
             Tests for Bad eui-64 address
             """
             data['anycast'] = "FEC0::C001:37FF:FE6C::0"
+            schema.load(data)
+
+
+class BaseSNMPv2TestCase(unittest.TestCase):
+
+    def test_case_1(self):
+        """
+        Test for basic SNMPv2 config
+
+        """
+        schema = BaseSNMPv2()
+
+        data = copy.deepcopy(data_base_snmpv2)
+        json_str = json.dumps(data)
+
+        self.assertIsInstance(schema.load(data), dict)
+        self.assertIsInstance(schema.loads(json_str), dict)
+
+    def test_case_2(self):
+        """
+        Test all possible snmpv2 group types
+
+        """
+        schema = BaseSNMPv2()
+
+        data = copy.deepcopy(data_base_snmpv2)
+
+        data['group_type'] = "rw"
+        self.assertIsInstance(schema.load(data), dict)
+
+        data['group_type'] = "ro"
+        self.assertIsInstance(schema.load(data), dict)
+
+        with self.assertRaises(ValidationError):
+            data['group_type'] = "bad_type"
+            self.assertIsInstance(schema.load(data), dict)
+
+    def test_case_3(self):
+        """
+        Test for required community key.
+
+        """
+        schema = BaseSNMPv2()
+
+        data = copy.deepcopy(data_base_snmpv2)
+
+        del data['community']
+
+        with self.assertRaises(ValidationError):
+            schema.load(data)
+
+
+class BaseSMNPv3TestCase(unittest.TestCase):
+    def test_case_1(self):
+        """
+        Test Basic SNMPv3 AuthPriv validation
+
+        """
+        schema = BaseSNMPv3()
+
+        data = copy.deepcopy(data_base_snmpv3_auth_priv)
+        json_str = json.dumps(data)
+
+        self.assertIsInstance(schema.load(data), dict)
+        self.assertIsInstance(schema.loads(json_str), dict)
+
+    def test_case_2(self):
+        """
+        Test Basic SNMPv3 AuthNoPriv validation
+
+        """
+        schema = BaseSNMPv3()
+
+        data = copy.deepcopy(data_base_snmpv3_auth_no_priv)
+        json_str = json.dumps(data)
+
+        self.assertIsInstance(schema.load(data), dict)
+        self.assertIsInstance(schema.loads(json_str), dict)
+
+    def test_case_3(self):
+        """
+        Test Basic SNMPv3 NoAuthNoPriv validation
+
+        """
+        schema = BaseSNMPv3()
+
+        data = copy.deepcopy(data_base_snmpv3_no_auth_no_priv)
+        json_str = json.dumps(data)
+
+        self.assertIsInstance(schema.load(data), dict)
+        self.assertIsInstance(schema.loads(json_str), dict)
+
+    def test_case_4(self):
+        """
+        Test for SNMPv3 modes
+        """
+        schema = BaseSNMPv3()
+
+        data = copy.deepcopy(data_base_snmpv3_no_auth_no_priv)
+        json_str = json.dumps(data)
+
+        for mode in SNMPV3_MODES:
+            data['mode'] = mode
+            self.assertIsInstance(schema.load(data), dict)
+
+        with self.assertRaises(ValidationError):
+            data['mode'] = "bad_mode"
+            schema.load(data)
+
+    def test_case_5(self):
+        """
+        Test for SNMPv3 Auth Algs
+        """
+        schema = BaseSNMPv3()
+
+        data = copy.deepcopy(data_base_snmpv3_auth_priv)
+
+        for auth_alg in AUTH_ALGS:
+            data['auth_alg'] = auth_alg
+            self.assertIsInstance(schema.load(data), dict)
+
+        with self.assertRaises(ValidationError):
+            data['auth_alg'] = "bad_alg"
+            schema.load(data)
+
+    def test_case_6(self):
+        """
+        Test for SNMPv3 Priv Algs
+        """
+        schema = BaseSNMPv3()
+
+        data = copy.deepcopy(data_base_snmpv3_auth_priv)
+
+        for priv_alg in PRIV_ALGS:
+            data['priv_alg'] = priv_alg
+            self.assertIsInstance(schema.load(data), dict)
+
+        with self.assertRaises(ValidationError):
+            data['priv_alg'] = "bad_alg"
             schema.load(data)
 
 

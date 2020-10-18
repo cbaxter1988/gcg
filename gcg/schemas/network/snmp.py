@@ -1,5 +1,5 @@
 from marshmallow import Schema, fields, validate
-from .validators import IPValidator
+from gcg.schemas.validators import IPValidator
 SNMPV2_GROUP_TYPES = [
     "ro",
     "rw"
@@ -26,12 +26,12 @@ PRIV_ALGS = [
 
 
 class BaseSNMPv2(Schema):
-    community = fields.Str()
+    community = fields.Str(required=True)
     group_type = fields.Str(validate=validate.OneOf(SNMPV2_GROUP_TYPES))
 
 
 class BaseSNMPv3(Schema):
-    mode = fields.Str(validate=validate.OneOf(SNMPV3_MODES))
+    mode = fields.Str(validate=validate.OneOf(SNMPV3_MODES), required=True)
     peer = fields.Str(validate=IPValidator())
     group_name = fields.Str(required=True)
     username = fields.Str(required=True)
@@ -39,3 +39,4 @@ class BaseSNMPv3(Schema):
     priv_pw = fields.Str()
     auth_alg = fields.Str(validate=validate.OneOf(AUTH_ALGS))
     priv_alg = fields.Str(validate=validate.OneOf(PRIV_ALGS))
+

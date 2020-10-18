@@ -233,3 +233,35 @@ data_ipv6_link_local = {
 data_ipv6_anycast = {
     "anycast": "2001:0db8:85a3::8a2e:0370:7334"
 }
+
+data_base_snmpv2 = {
+    "community": "r1",
+    "group_type": "ro"
+}
+
+data_base_snmpv3_auth_priv = {
+    "mode": "AuthPriv",
+    "peer": "1.1.1.1",
+    "group_name": "TEST_GROUP",
+    "username": "test_user",
+    "auth_pw": "test_pw",
+    "priv_pw": "test_pw",
+    "auth_alg": "md5",
+    "priv_alg": "3des",
+}
+
+data_base_snmpv3_auth_no_priv = {
+    "mode": "AuthNoPriv",
+    "peer": "1.1.1.1",
+    "group_name": "TEST_GROUP",
+    "username": "test_user",
+    "auth_pw": "test_pw",
+    "auth_alg": "md5",
+}
+
+data_base_snmpv3_no_auth_no_priv = {
+    "mode": "noAuthNoPriv",
+    "peer": "1.1.1.1",
+    "group_name": "TEST_GROUP",
+    "username": "test_user"
+}
