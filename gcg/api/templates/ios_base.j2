@@ -1,0 +1,55 @@
+{% extends "base.j2" %}
+
+{% block title %}IOS Base Config{% endblock %}
+
+<main>
+    {% block main %}
+
+        <div class="row">
+            <div class="col-12 text-center mt-5">
+{#                <h4>Configuration Params</h4>#}
+            </div>
+        </div>
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <h6>Base Config</h6>
+                        {% for field in fields %}
+
+                            {% if field.type == 'str' %}
+                                <div class="input-group input-group-sm mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="{{ field.name }}">{{ field.name }}</span>
+                                    </div>
+                                    <input type="text" class="form-control" aria-label="Sizing example input"
+                                           aria-describedby="inputGroup-sizing-sm">
+                                </div>
+                            {% endif %}
+
+
+
+                        {% endfor %}
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="col">
+                <div class="card text-center justify-content-center">
+                    <div class="card-body">
+                        <h6>Interfaces</h6>
+                        <button type="button" class="btn btn-primary">Add</button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+    {% endblock %}
+
+</main>

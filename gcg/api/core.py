@@ -1,13 +1,15 @@
 import http.client as http_status_codes
 from functools import wraps
+
 # import psutil
 from flask import Flask, jsonify, render_template
 from flask_restful import Api
 from gcg.api.resources import (
     GCGResource
 )
+from gcg.schemas.config.ios.ios_base import IOSNodeSchema
 from gcg.env import DB_HOST, DB_PORT, DB
-from gcg.utils import APIResponse, make_json_response
+from gcg.utils import make_json_response
 from mongoengine import connect
 
 # ---- Flask Config ----
@@ -21,11 +23,39 @@ connect(db=DB, host=DB_HOST, port=DB_PORT)
 # --- API Registration ---
 api.add_resource(GCGResource, "/api/v1/gcg")
 
+template_types = [
+    {
+        "name": "ios_base_node",
+        "url": "/gui/ios_base"
+
+    }
+
+]
+
 
 # --- Routes ---
-@app.route("/")
+@app.route("/gui")
 def index():
-    return render_template("index.jinja2")
+    return render_template("base.j2", template_types=template_types)
+
+
+@app.route('/gui/ios_base')
+def ios_base():
+    fields = [
+        {
+            "name": "hostname",
+            "type": "str"
+        },
+        {
+            "name": "domain",
+            "type": "str"
+        }
+
+    ]
+    schema = IOSNodeSchema()
+    print(schema.fields.keys())
+
+    return render_template("ios_base.j2", template_types=template_types, fields=fields)
 
 
 @app.route("/health")
@@ -41,6 +71,7 @@ def health_v2():
         status_code=http_status_codes.OK
     )
 
+
 # --- psutil fails on Docker image build, need to troubleshoot, this function returns valuable server info.
 # def health_v1():
 #     return make_json_response(
@@ -52,8 +83,6 @@ def health_v2():
 #         msg="System is Healthy",
 #         status_code=http_status_codes.OK
 #     )
-
-
 
 
 @app.route("/api/v1/login")
