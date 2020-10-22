@@ -4,18 +4,13 @@
 
 <main>
     {% block main %}
-
+        <hr class="mt-5">
         <div class="row">
-            <div class="col-12 text-center mt-5">
-{#                <h4>Configuration Params</h4>#}
-            </div>
-        </div>
-        <div class="row mt-5">
-            <div class="col"></div>
-            <div class="col">
+
+            <div class="col-3 offset-5 justify-content-center mt-2">
                 <div class="card text-center">
                     <div class="card-body">
-                        <h6>Base Config</h6>
+                        {#                        <h6>Base Config</h6>#}
                         {% for field in fields %}
 
                             {% if field.type == 'str' %}
@@ -23,30 +18,67 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text" id="{{ field.name }}">{{ field.name }}</span>
                                     </div>
-                                    <input type="text" class="form-control" aria-label="Sizing example input"
-                                           aria-describedby="inputGroup-sizing-sm">
+                                    <input size="3" type="text" class="form-control" aria-label="Sizing example input"
+                                           aria-describedby="{{ field.name }}">
                                 </div>
                             {% endif %}
-
-
-
                         {% endfor %}
                     </div>
                 </div>
 
-
             </div>
+        </div>
+
+        <div class="row text-center">
             <div class="col">
-                <div class="card text-center justify-content-center">
+                <hr>
+                <h3>Link Configuration </h3>
+                <button type="button" class="btn btn-primary">Add Link</button>
+                <div class="card mt-3">
                     <div class="card-body">
-                        <h6>Interfaces</h6>
-                        <button type="button" class="btn btn-primary">Add</button>
-                    </div>
+                        <table class="table ">
+                            <thead>
+                            <tr>
+                                <th scope="col">LinkID</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Bandwidth</th>
+                                <th scope="col">enabled</th>
+                                <th scope="col">IPv4 Addr</th>
+                                <th scope="col">IPv4 Netmask</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">Eth0/0</th>
+                                <td>Link to R1::Gi0/0</td>
+                                <td>100 Mbps</td>
+                                <td>true</td>
+                                <td>192.168.1.2</td>
+                                <td>255.255.255.252</td>
+                                <td>
+                                    <button type="button" class="btn btn-primary">Edit</button>
+                                    <button type="button" class="btn btn-primary">Show</button>
+                                    <button type="button" class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
 
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Routing Configuration</h3>
+                    </div>
+                </div>
+
+
             </div>
+
 
         </div>
+
 
 
 

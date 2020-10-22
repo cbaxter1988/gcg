@@ -1,0 +1,41 @@
+{% extends "base.j2" %}
+
+{% block title %}IOS Base Config{% endblock %}
+
+<main>
+    {% block main %}
+        <div class="row mt-5 text-center">
+
+            <div class="col-3 offset-5">
+                <h3>Saved Config</h3>
+                <button type="button" class="btn btn-primary">Import JSON</button>
+                <div class="card-body">
+                    <table class="table ">
+                        <thead>
+                        <tr>
+                            <th scope="col">Configuration Name</th>
+                            <th scope="col">Lab Name</th>
+                            <th scope="col">Template Type</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">R1-BITS-CORE</th>
+                            <td>MPLS_BASE_LAB</td>
+                            <td>ios_base_node</td>
+
+                            <td>
+                                <button type="button" class="btn btn-primary">Export JSON</button>
+                                <button type="button" class="btn btn-primary">Export Text</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+</main>

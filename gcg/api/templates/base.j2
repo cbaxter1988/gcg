@@ -10,6 +10,7 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
           integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/main.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
             integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -20,40 +21,56 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
             integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
             crossorigin="anonymous"></script>
-      <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 <div class="container-fluid">
-    <div class="row justify-content-center">
-        {# NAV BAR #}
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link" href="/gui">GCG</a>
 
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-                   aria-expanded="false">Generate Config</a>
-                <div class="dropdown-menu">
-                    {% for type in template_types %}
-                        <a class="dropdown-item" href="{{ type.url }}">{{ type.name }}</a>
-                        <div class="dropdown-divider"></div>
-                    {% endfor %}
+    <div class="row text-center" style="background-color: black">
+        <div class="col-12">
+            <h1>Genesis Configuration Generator</h1>
+            <ul class="nav justify-content-center">
+                <li class="nav-item">
+                    <a class="NavItem nav-link" href="/gui">Home</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="NavItem nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button"
+                       aria-haspopup="true" aria-expanded="false">Generate Configs</a>
+                    <div class="dropdown-menu">
+                        {% for type in template_types %}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{{ type.url }}">{{ type.name }}</a>
+
+                        {% endfor %}
+
+                    </div>
+                </li>
+                <li class=" nav-item">
+                    <a class="NavItem nav-link" href="#">About</a>
+                </li>
+                <li class=" nav-item">
+                    <a class=" NavItem nav-link" href="https://github.com/cbaxter1988/gcg" tabindex="-1"
+                       aria-disabled="true">Code</a>
+                </li>
+            </ul>
+        </div>
 
 
-                    <a class="dropdown-item" href="#">Separated link</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-        </ul>
     </div>
-    <div class="container-fluid">
-         {% block main %}{% endblock %}
+
+
+
+</div>
+<div class="container-fluid">
+    {% block main %}
+    {% endblock %}
+</div>
+<div class="container-fluid text-center">
+    <div class="row fixed-bottom text-center" style="background-color: black">
+        <div class="col">
+            <small>Created by Courtney Baxter Jr.</small>
+        </div>
+
     </div>
 </div>
 </body>

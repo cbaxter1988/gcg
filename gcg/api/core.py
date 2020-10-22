@@ -2,12 +2,11 @@ import http.client as http_status_codes
 from functools import wraps
 
 # import psutil
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, redirect
 from flask_restful import Api
 from gcg.api.resources import (
     GCGResource
 )
-from gcg.schemas.config.ios.ios_base import IOSNodeSchema
 from gcg.env import DB_HOST, DB_PORT, DB
 from gcg.utils import make_json_response
 from mongoengine import connect
@@ -25,18 +24,30 @@ api.add_resource(GCGResource, "/api/v1/gcg")
 
 template_types = [
     {
-        "name": "ios_base_node",
+        "id": "ios_base_node",
+        "name": "IOS Base Config",
         "url": "/gui/ios_base"
 
-    }
+    },
+    {
+        "id": "linux_netplan",
+        "name": "Linux Netplan",
+        "url": "/gui/linux_netplan"
+
+    },
 
 ]
 
 
 # --- Routes ---
-@app.route("/gui")
+@app.route("/")
 def index():
-    return render_template("base.j2", template_types=template_types)
+    return redirect("/gui")
+
+
+@app.route("/gui")
+def gui():
+    return render_template("index.j2", template_types=template_types)
 
 
 @app.route('/gui/ios_base')
@@ -52,8 +63,6 @@ def ios_base():
         }
 
     ]
-    schema = IOSNodeSchema()
-    print(schema.fields.keys())
 
     return render_template("ios_base.j2", template_types=template_types, fields=fields)
 
